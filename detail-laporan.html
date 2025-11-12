@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detail Laporan - SIPADAM</title>
+  <link rel="stylesheet" href="detail-laporan.css">
+</head>
+<body>
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <div class="menu-toggle">☰</div>
+      <div class="logo">
+        <span class="icon">🔥</span>
+        <div class="logo-text">
+          <h2>SIPADAM</h2>
+          <p>Sistem Peringatan Dini</p>
+        </div>
+      </div>
+    </div>
+    <ul class="menu">
+      <li id="menu-dashboard"><span>📊</span><span class="menu-text">Dashboard</span></li>
+      <li class="active"><span>📋</span><span class="menu-text">Laporan</span></li>
+      <li id="menu-profil"><span>👤</span><span class="menu-text">Profil</span></li>
+      <li id="menu-logout"><span>🚪</span><span class="menu-text">Keluar</span></li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <header>
+      <h1>Detail Laporan</h1>
+      <div class="user-info">
+        <span class="notif">🔔<span class="badge">3</span></span>
+        <span class="user">👩‍🚒 Petugas Pemadam</span>
+        <span class="status online">Online</span>
+      </div>
+    </header>
+
+    <button class="back-btn" onclick="window.location.href='laporan.html'">⬅ Kembali ke Daftar Laporan</button>
+
+    <div class="content-wrapper">
+      <div class="left-section">
+        <div class="report-summary">
+          <div class="report-header">
+            <h2 id="judulLaporan">Laporan Kebakaran</h2>
+            <span class="status-badge red" id="statusLaporan">Aktif</span>
+          </div>
+          <p class="time" id="waktuLaporan">Senin, 15 Januari 2024 pukul 17.30</p>
+
+          <div class="metrics">
+            <div class="metric red">
+              <p>🔥 Suhu</p>
+              <h3 id="suhu">45°C</h3>
+            </div>
+            <div class="metric blue">
+              <p>💧 Kelembaban</p>
+              <h3 id="kelembaban">30%</h3>
+            </div>
+            <div class="metric orange">
+              <p>🔥 Intensitas</p>
+              <h3 id="intensitas">TINGGI</h3>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <h3>Informasi Lokasi</h3>
+          <p><b>Alamat:</b><br><span id="alamat">Jl. Sudirman No. 45, Jakarta Pusat</span></p>
+          <p><b>Koordinat GPS:</b><br><span id="koordinat">-6.2088, 106.8456</span></p>
+          <iframe id="mapFrame" width="100%" height="250" style="border:0; border-radius:8px; margin-top:10px;"></iframe>
+          <p><b>Deskripsi Kejadian:</b><br><span id="deskripsi">Kebakaran di lantai 3 gedung perkantoran.</span></p>
+          <p><b>Pelapor:</b> <span id="pelapor">Ahmad Wijaya</span></p>
+        </div>
+
+        <div class="info-card">
+          <h3>Catatan Internal</h3>
+          <div class="note">
+            <p><b>Petugas Pemadam</b></p>
+            <p>Tim sudah dikirim ke lokasi. ETA 15 menit.</p>
+            <span class="time">10 menit yang lalu</span>
+          </div>
+          <button class="add-note-btn">+ Tambah Catatan</button>
+        </div>
+      </div>
+
+      <div class="right-section">
+        <div class="action-card">
+          <h3>Aksi Status</h3>
+          <button class="status-btn yellow">▶ Tandai Sedang Ditangani</button>
+        </div>
+
+        <div class="info-card quick-info">
+          <h3>Informasi Cepat</h3>
+          <p><b>ID Laporan:</b> <span id="idLaporan">#1</span></p>
+          <p><b>Waktu Laporan:</b> <span id="jamLaporan">17.30.00</span></p>
+          <p><b>Prioritas:</b> <span class="priority high" id="prioritas">Tinggi</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Navigasi
+    document.getElementById("menu-dashboard").onclick = () => window.location.href = "dashboard.html";
+    document.getElementById("menu-profil").onclick = () => window.location.href = "profil.html";
+    document.getElementById("menu-logout").onclick = () => window.location.href = "login.html";
+
+    // Ambil parameter id dari URL
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+
+    // Data dummy laporan (nanti bisa diganti dari database / IoT API)
+    const laporanData = {
+      1: {
+        judul: "Laporan Kebakaran #1",
+        status: "Aktif",
+        waktu: "Senin, 15 Januari 2024 pukul 17.30",
+        suhu: "45°C",
+        kelembaban: "30%",
+        intensitas: "TINGGI",
+        alamat: "Jl. Sudirman No. 45, Jakarta Pusat",
+        koordinat: "-6.2088, 106.8456",
+        deskripsi: "Kebakaran di lantai 3 gedung perkantoran, asap tebal terlihat dari jendela.",
+        pelapor: "Ahmad Wijaya",
+        map: "https://www.google.com/maps?q=-6.2088,106.8456&hl=id&z=15&output=embed",
+        prioritas: "Tinggi"
+      },
+      2: {
+        judul: "Laporan Kebakaran #2",
+        status: "Sedang Ditangani",
+        waktu: "Senin, 15 Januari 2024 pukul 16.15",
+        suhu: "38°C",
+        kelembaban: "55%",
+        intensitas: "SEDANG",
+        alamat: "Jl. Gatot Subroto Km 5, Jakarta Selatan",
+        koordinat: "-6.25, 106.8",
+        deskripsi: "Kebakaran rumah tinggal, api sudah menjalar ke atap.",
+        pelapor: "Siti Nurhaliza",
+        map: "https://www.google.com/maps?q=-6.25,106.8&hl=id&z=15&output=embed",
+        prioritas: "Sedang"
+      },
+      3: {
+        judul: "Laporan Kebakaran #3",
+        status: "Selesai",
+        waktu: "Senin, 15 Januari 2024 pukul 15.45",
+        suhu: "25°C",
+        kelembaban: "60%",
+        intensitas: "RENDAH",
+        alamat: "Jl. Thamrin No. 12, Jakarta Pusat",
+        koordinat: "-6.1833, 106.8166",
+        deskripsi: "Kebakaran kecil di dapur restoran akibat korsleting listrik.",
+        pelapor: "Budi Santoso",
+        map: "https://www.google.com/maps?q=-6.1833,106.8166&hl=id&z=15&output=embed",
+        prioritas: "Rendah"
+      }
+    };
+
+    const data = laporanData[id] || laporanData[1]; // fallback jika id tidak ditemukan
+
+    // Isi data ke halaman
+    document.getElementById("judulLaporan").textContent = data.judul;
+    document.getElementById("statusLaporan").textContent = data.status;
+    document.getElementById("waktuLaporan").textContent = data.waktu;
+    document.getElementById("suhu").textContent = data.suhu;
+    document.getElementById("kelembaban").textContent = data.kelembaban;
+    document.getElementById("intensitas").textContent = data.intensitas;
+    document.getElementById("alamat").textContent = data.alamat;
+    document.getElementById("koordinat").textContent = data.koordinat;
+    document.getElementById("deskripsi").textContent = data.deskripsi;
+    document.getElementById("pelapor").textContent = data.pelapor;
+    document.getElementById("idLaporan").textContent = `#${id}`;
+    document.getElementById("prioritas").textContent = data.prioritas;
+    document.getElementById("mapFrame").src = data.map;
+  </script>
+</body>
+</html>
