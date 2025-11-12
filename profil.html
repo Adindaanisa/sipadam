@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profil Petugas - SIPADAM</title>
+  <link rel="stylesheet" href="profil.css">
+</head>
+<body>
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <div class="menu-toggle">☰</div>
+      <div class="logo">
+        <span class="icon">🔥</span>
+        <div class="logo-text">
+          <h2>SIPADAM</h2>
+          <p>Sistem Peringatan Dini</p>
+        </div>
+      </div>
+    </div>
+    <ul class="menu">
+      <li id="dashboardLink"><span>📊</span><span class="menu-text">Dashboard</span></li>
+      <li id="laporanLink"><span>📋</span><span class="menu-text">Laporan</span></li>
+      <li class="active"><span>👤</span><span class="menu-text">Profil</span></li>
+      <li id="logoutLink"><span>🚪</span><span class="menu-text">Keluar</span></li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <header>
+      <h1>Profil Petugas</h1>
+      <div class="user-info">
+        <span class="notif">🔔<span class="badge">2</span></span>
+        <span class="user">👩‍🚒 Petugas Pemadam</span>
+        <span class="status online">Online</span>
+      </div>
+    </header>
+
+    <div class="profile-section">
+      <div class="profile-header">
+        <div class="profile-left">
+          <div class="profile-avatar">👤</div>
+          <div class="profile-info">
+            <h2 id="namaPetugas">Ahmad Wijaya</h2>
+            <p>Kepala Regu Pemadam</p>
+            <p class="subtext">Pos Pemadam Jakarta Pusat</p>
+          </div>
+        </div>
+        <button class="edit-btn" id="editProfileBtn">Edit Profil</button>
+      </div>
+
+      <div class="profile-details">
+        <div class="card">
+          <h3>Informasi Pribadi</h3>
+          <p class="info-item"><b>Nama Lengkap:</b> Ahmad Wijaya</p>
+          <p class="info-item"><b>Email:</b> ahmad.wijaya@pemadam.jakarta.go.id</p>
+          <p class="info-item"><b>Nomor Telepon:</b> +62 812-3456-7890</p>
+        </div>
+
+        <div class="card">
+          <h3>Informasi Kepegawaian</h3>
+          <p class="info-item"><b>ID Pegawai:</b> PD-2024-001</p>
+          <p class="info-item"><b>Jabatan:</b> Kepala Regu Pemadam</p>
+          <p class="info-item"><b>Unit Kerja:</b> Pos Pemadam Jakarta Pusat</p>
+          <p class="info-item"><b>Tanggal Bergabung:</b> 15 Maret 2020</p>
+        </div>
+      </div>
+
+      <div class="summary">
+        <div class="summary-item blue">
+          <h2>47</h2>
+          <p>Laporan Ditangani</p>
+        </div>
+        <div class="summary-item green">
+          <h2>42</h2>
+          <p>Berhasil Diselesaikan</p>
+        </div>
+        <div class="summary-item yellow">
+          <h2>7.2</h2>
+          <p>Rata-rata Respon (menit)</p>
+        </div>
+      </div>
+
+      <div class="security-section">
+        <h3>Keamanan Akun</h3>
+        <div class="security-card">
+          <div>
+            <p><b>Ubah Password</b></p>
+            <p class="desc">Terakhir diubah 30 hari yang lalu</p>
+          </div>
+          <button class="action-btn" onclick="openModal('passwordModal')">Ubah Password</button>
+        </div>
+
+        <div class="security-card">
+          <div>
+            <p><b>Autentikasi Dua Faktor</b></p>
+            <p class="desc">Tambahkan keamanan untuk akun Anda</p>
+          </div>
+          <button class="action-btn" onclick="openModal('twoFAModal')">Aktifkan 2FA</button>
+        </div>
+
+        <div class="security-card">
+          <div>
+            <p><b>Riwayat Login</b></p>
+            <p class="desc">Lihat aktivitas login terbaru</p>
+          </div>
+          <button class="action-btn" onclick="openModal('riwayatModal')">Lihat Riwayat</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Edit Profil -->
+  <div class="modal" id="editProfileModal">
+    <div class="modal-content">
+      <h3>Edit Profil</h3>
+      <input type="text" id="editNama" placeholder="Nama Lengkap" />
+      <input type="email" id="editEmail" placeholder="Email" />
+      <input type="text" id="editTelepon" placeholder="Nomor Telepon" />
+      <div class="modal-actions">
+        <button class="cancel-btn" onclick="closeModal('editProfileModal')">Batal</button>
+        <button class="save-btn" id="saveProfileBtn">Simpan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Password -->
+  <div class="modal" id="passwordModal">
+    <div class="modal-content">
+      <h3>Ubah Password</h3>
+      <input type="password" placeholder="Password Baru" />
+      <input type="password" placeholder="Konfirmasi Password" />
+      <div class="modal-actions">
+        <button class="cancel-btn" onclick="closeModal('passwordModal')">Batal</button>
+        <button class="save-btn">Simpan</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 2FA -->
+  <div class="modal" id="twoFAModal">
+    <div class="modal-content">
+      <h3>Aktifkan 2FA</h3>
+      <p>Kirim kode ke email Anda untuk verifikasi keamanan.</p>
+      <div class="modal-actions">
+        <button class="cancel-btn" onclick="closeModal('twoFAModal')">Tutup</button>
+        <button class="save-btn">Kirim Kode</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Riwayat -->
+  <div class="modal" id="riwayatModal">
+    <div class="modal-content">
+      <h3>Riwayat Login</h3>
+      <p>Terakhir login: 12 Nov 2025, 10:15 WIB</p>
+      <p>Perangkat: Chrome di Windows</p>
+      <div class="modal-actions">
+        <button class="save-btn" onclick="closeModal('riwayatModal')">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Sidebar Navigation
+    document.getElementById("dashboardLink").addEventListener("click", () => {
+      window.location.href = "dashboard.html";
+    });
+
+    document.getElementById("laporanLink").addEventListener("click", () => {
+      window.location.href = "laporan.html";
+    });
+
+    document.getElementById("logoutLink").addEventListener("click", () => {
+      if (confirm("Yakin ingin keluar dari akun?")) {
+        window.location.href = "login.html";
+      }
+    });
+
+    // Modal Control
+    function openModal(id) {
+      document.getElementById(id).style.display = "flex";
+    }
+
+    function closeModal(id) {
+      document.getElementById(id).style.display = "none";
+    }
+
+    // Edit Profile
+    document.getElementById("editProfileBtn").addEventListener("click", () => {
+      openModal("editProfileModal");
+    });
+
+    document.getElementById("saveProfileBtn").addEventListener("click", () => {
+      const nama = document.getElementById("editNama").value;
+      const email = document.getElementById("editEmail").value;
+      const telepon = document.getElementById("editTelepon").value;
+
+      if (nama) document.getElementById("namaPetugas").textContent = nama;
+      if (email) document.querySelector(".card .info-item:nth-child(2)").innerHTML = `<b>Email:</b> ${email}`;
+      if (telepon) document.querySelector(".card .info-item:nth-child(3)").innerHTML = `<b>Nomor Telepon:</b> ${telepon}`;
+
+      closeModal("editProfileModal");
+      alert("Profil berhasil diperbarui!");
+    });
+  </script>
+</body>
+</html>
