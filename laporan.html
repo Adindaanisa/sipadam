@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laporan Kebakaran - SIPADAM</title>
+  <link rel="stylesheet" href="laporan.css">
+</head>
+<body>
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <div class="menu-toggle">☰</div>
+      <div class="logo">
+        <span class="icon">🔥</span>
+        <div class="logo-text">
+          <h2>SIPADAM</h2>
+          <p>Sistem Peringatan Dini</p>
+        </div>
+      </div>
+    </div>
+    <ul class="menu">
+      <li id="menu-dashboard"><span>📊</span><span class="menu-text">Dashboard</span></li>
+      <li class="active"><span>📋</span><span class="menu-text">Laporan</span></li>
+      <li id="menu-profil"><span>👤</span><span class="menu-text">Profil</span></li>
+      <li id="menu-logout"><span>🚪</span><span class="menu-text">Keluar</span></li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <header>
+      <h1>Laporan Kebakaran</h1>
+      <div class="user-info">
+        <span class="notif">🔔<span class="badge">3</span></span>
+        <span class="user">👩‍🚒 Petugas Pemadam</span>
+        <span class="status online">Online</span>
+      </div>
+    </header>
+
+    <div class="filter-bar">
+      <input type="text" placeholder="Cari laporan..." class="search-input" id="searchInput">
+      <select class="filter-select" id="statusFilter">
+        <option value="Semua">Semua Status</option>
+        <option value="Aktif">Aktif</option>
+        <option value="Sedang Ditangani">Sedang Ditangani</option>
+        <option value="Selesai">Selesai</option>
+      </select>
+      <p class="info" id="infoText">Menampilkan semua laporan</p>
+    </div>
+
+    <div class="report-list" id="reportList">
+      <!-- Laporan 1 -->
+      <div class="report-item" data-status="Aktif">
+        <div class="report-header">
+          <h2>Laporan #1 - Jl. Sudirman No. 45, Jakarta Pusat</h2>
+          <span class="status-badge red">Aktif</span>
+        </div>
+        <p>Kebakaran di lantai 3 gedung perkantoran, asap tebal terlihat dari jendela.</p>
+        <p class="meta">Dilaporkan oleh: <b>Ahmad Wijaya</b></p>
+        <div class="report-footer">
+          <span>🕓 15/01/2024, 17.30</span>
+          <span>🌡️ 43°C</span>
+          <span>💧 45%</span>
+          <span class="intensity high">🔥 Intensitas: TINGGI</span>
+          <button class="detail-btn" data-id="1">Detail</button>
+        </div>
+      </div>
+
+      <!-- Laporan 2 -->
+      <div class="report-item" data-status="Sedang Ditangani">
+        <div class="report-header">
+          <h2>Laporan #2 - Jl. Gatot Subroto Km 5, Jakarta Selatan</h2>
+          <span class="status-badge yellow">Sedang Ditangani</span>
+        </div>
+        <p>Kebakaran rumah tinggal, api sudah menjalar ke atap.</p>
+        <p class="meta">Dilaporkan oleh: <b>Siti Nurhaliza</b></p>
+        <div class="report-footer">
+          <span>🕓 15/01/2024, 16.15</span>
+          <span>🌡️ 38°C</span>
+          <span>💧 55%</span>
+          <span class="intensity medium">🔥 Intensitas: SEDANG</span>
+          <button class="detail-btn" data-id="2">Detail</button>
+        </div>
+      </div>
+
+      <!-- Laporan 3 -->
+      <div class="report-item" data-status="Selesai">
+        <div class="report-header">
+          <h2>Laporan #3 - Jl. Thamrin No. 12, Jakarta Pusat</h2>
+          <span class="status-badge green">Selesai</span>
+        </div>
+        <p>Kebakaran kecil di dapur restoran, api sudah dipadamkan.</p>
+        <p class="meta">Dilaporkan oleh: <b>Budi Santoso</b></p>
+        <div class="report-footer">
+          <span>🕓 15/01/2024, 15.45</span>
+          <span>🌡️ 25°C</span>
+          <span>💧 60%</span>
+          <span class="intensity low">🔥 Intensitas: RENDAH</span>
+          <button class="detail-btn" data-id="3">Detail</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Navigasi antar halaman
+    document.getElementById("menu-dashboard").onclick = () => window.location.href = "dashboard.html";
+    document.getElementById("menu-profil").onclick = () => window.location.href = "profil.html";
+    document.getElementById("menu-logout").onclick = () => window.location.href = "login.html";
+
+    // Navigasi ke halaman detail laporan
+    document.querySelectorAll(".detail-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const reportId = btn.dataset.id;
+        window.location.href = `detail-laporan.html?id=${reportId}`;
+      });
+    });
+
+    // Pencarian dan filter status
+    const searchInput = document.getElementById("searchInput");
+    const statusFilter = document.getElementById("statusFilter");
+    const reports = document.querySelectorAll(".report-item");
+    const infoText = document.getElementById("infoText");
+
+    function filterReports() {
+      const keyword = searchInput.value.toLowerCase();
+      const status = statusFilter.value;
+      let visibleCount = 0;
+
+      reports.forEach(report => {
+        const text = report.innerText.toLowerCase();
+        const matchesKeyword = text.includes(keyword);
+        const matchesStatus = status === "Semua" || report.dataset.status === status;
+        if (matchesKeyword && matchesStatus) {
+          report.style.display = "block";
+          visibleCount++;
+        } else {
+          report.style.display = "none";
+        }
+      });
+
+      infoText.textContent = `Menampilkan ${visibleCount} laporan`;
+    }
+
+    searchInput.addEventListener("input", filterReports);
+    statusFilter.addEventListener("change", filterReports);
+  </script>
+</body>
+</html>
