@@ -5,6 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Dashboard SIPADAM</title>
   <link rel="stylesheet" href="dashboard.css" />
+
+  <!-- Leaflet CSS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  />
+  <script
+    defer
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+  ></script>
+
+  <!-- File JS -->
   <script defer src="dashboard.js"></script>
 </head>
 <body>
@@ -66,22 +78,19 @@
       <div class="map-card">
         <div class="map-header">
           <h3>Peta Lokasi Kebakaran</h3>
-          <button class="btn-secondary">Perbesar</button>
+          <button class="btn-secondary" onclick="zoomMap()">Perbesar</button>
         </div>
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.732063127927!2d106.82693047475208!3d-6.165365460400347!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f5c1b9998b8f%3A0x1d6fce1f7e8a1cf0!2sJakarta%20Pusat!5e0!3m2!1sid!2sid!4v1731420000000!5m2!1sid!2sid"
-          width="100%" height="300" style="border:0; border-radius:12px;" allowfullscreen=""
-          loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
+        <div id="map" style="width: 100%; height: 300px; border-radius: 12px;"></div>
       </div>
 
+      <!-- Laporan Terbaru -->
       <div class="report-card">
         <div class="report-header">
           <h3>Laporan Terbaru</h3>
           <button class="btn-secondary" onclick="location.href='laporan.html'">Lihat Semua</button>
         </div>
         <div class="report-list">
-          <div class="report-item" data-laporan="1">
+          <div class="report-item">
             <h4>Jl. Sudirman No. 45, Jakarta Pusat</h4>
             <p>Kebakaran di lantai 3 gedung perkantoran, asap tebal terlihat dari jendela.</p>
             <div class="report-meta">
@@ -90,7 +99,7 @@
             </div>
           </div>
 
-          <div class="report-item" data-laporan="2">
+          <div class="report-item">
             <h4>Jl. Gatot Subroto Km 5, Jakarta Selatan</h4>
             <p>Kebakaran rumah tinggal, api sudah menjalar ke atap.</p>
             <div class="report-meta yellow">
@@ -99,7 +108,7 @@
             </div>
           </div>
 
-          <div class="report-item" data-laporan="3">
+          <div class="report-item">
             <h4>Jl. Thamrin No. 12, Jakarta Pusat</h4>
             <p>Kebakaran kecil di dapur restoran, sudah terkendali.</p>
             <div class="report-meta green">
@@ -109,16 +118,6 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>
-
-  <div id="popupDetail" class="popup hidden">
-    <div class="popup-content">
-      <span class="close-btn" id="closePopup">&times;</span>
-      <h2 id="detailTitle">Detail Laporan</h2>
-      <p id="detailDeskripsi"></p>
-      <p id="detailWaktu"></p>
-      <p id="detailStatus"></p>
     </div>
   </div>
 </body>
